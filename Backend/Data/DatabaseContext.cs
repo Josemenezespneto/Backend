@@ -1,4 +1,5 @@
 ﻿using System;
+using Backend.Data.Map;
 using Backend.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,9 @@ namespace Backend.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new TaskMap());
+
             base.OnModelCreating(modelBuilder);
         }
     }
