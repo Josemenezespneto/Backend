@@ -13,7 +13,7 @@ namespace Backend.Controllers
     public class UserController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<List<User>> GetAllUsers ()
+        public ActionResult<List<UserModel>> GetAllUsers ()
         {
             return Ok();
         }

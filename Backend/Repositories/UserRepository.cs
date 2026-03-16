@@ -15,17 +15,17 @@ namespace Backend.Repositories
             _dbContext = databaseContext;
 		}
 
-        public async Task<List<User>> GetAllUsers()
+        public async Task<List<UserModel>> GetAllUsers()
         {
             return await _dbContext.Users.ToListAsync();
         }
 
-        public async Task<User> GetById(int id)
+        public async Task<UserModel> GetById(int id)
         {
             return await _dbContext.Users.FindAsync(id);
         }
 
-        public async Task<User> AddUser(User user)
+        public async Task<UserModel> AddUser(UserModel user)
         {
             await _dbContext.Users.AddAsync(user);
             await _dbContext.SaveChangesAsync();
@@ -33,9 +33,9 @@ namespace Backend.Repositories
             return user;
         }
 
-        public async Task<User> Update(User user, int id)
+        public async Task<UserModel> Update(UserModel user, int id)
         {
-            User userId = await GetById(id);
+            UserModel userId = await GetById(id);
 
             if(userId == null)
             {
@@ -53,7 +53,7 @@ namespace Backend.Repositories
 
         public async Task<bool> Delete(int id)
         {
-            User userId = await GetById(id);
+            UserModel userId = await GetById(id);
 
             if (userId == null)
             {

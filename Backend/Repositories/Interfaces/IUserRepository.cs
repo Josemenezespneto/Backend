@@ -5,13 +5,13 @@ namespace Backend.Repositories.Interfaces
 {
 	public interface IUserRepository
 	{
-		Task<List<User>> GetAllUsers();
+		Task<List<UserModel>> GetAllUsers();
 
-		Task<User> GetById(int id);
+		Task<UserModel> GetById(int id);
 
-		Task<User> AddUser(User user);
+		Task<UserModel> AddUser(UserModel user);
 
-		Task<User> Update(User user, int id);
+		Task<UserModel> Update(UserModel user, int id);
 
 		Task<bool> Delete(int id);
 

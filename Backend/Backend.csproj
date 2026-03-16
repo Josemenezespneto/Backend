@@ -31,6 +31,7 @@
     <None Remove="Repositories\" />
     <None Remove="Data\" />
     <None Remove="Repositories\Interfaces\" />
+    <None Remove="Enums\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -38,5 +39,6 @@
     <Folder Include="Repositories\" />
     <Folder Include="Data\" />
     <Folder Include="Repositories\Interfaces\" />
+    <Folder Include="Enums\" />
   </ItemGroup>
 </Project>
