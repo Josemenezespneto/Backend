@@ -6,29 +6,29 @@ namespace Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class TaskController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly ITaskService _taskService;
 
-        public UserController(IUserService userService)
+        public TaskController(ITaskService taskService)
         {
-            _userService = userService;
+            _taskService = taskService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<UserModel>>> GetAllUsers()
+        public async Task<ActionResult<List<TaskModel>>> GetAllTasks()
         {
-            var users = await _userService.GetAllUsers();
-            return Ok(users);
+            var task = await _taskService.GetAllTasks();
+            return Ok(task);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserModel>> GetById(int id)
+        public async Task<ActionResult<TaskModel>> GetById(int id)
         {
             try
             {
-                var user = await _userService.GetById(id);
-                return Ok(user);
+                var task = await _taskService.GetById(id);
+                return Ok(task);
             }
             catch (KeyNotFoundException ex)
             {
@@ -37,13 +37,13 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserModel>> AddUser([FromBody] UserModel userModel)
+        public async Task<ActionResult<TaskModel>> AddTask([FromBody] TaskModel taskModel)
         {
             try
             {
-                var user = await _userService.CreateUser(userModel);
+                var task = await _taskService.CreateTask(taskModel);
 
-                return Ok(user);
+                return Ok(task);
             }
             catch (Exception ex)
             {
@@ -52,15 +52,13 @@ namespace Backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<UserModel>> UpdateUser(int id, [FromBody] UserModel userModel)
+        public async Task<ActionResult<TaskModel>> UpdateUser(int id, [FromBody] TaskModel taskModel)
         {
-            try
-            {
-                if (id != userModel.Id)
-                    return BadRequest("Id diferente do usuário");
+            try { 
+            
+                var task = await _taskService.UpdateTask(taskModel, id);
 
-                var user = await _userService.UpdateUser(userModel, id);
-                return Ok(user);
+                return Ok(task);
             }
             catch (KeyNotFoundException ex)
             {
@@ -73,7 +71,7 @@ namespace Backend.Controllers
         {
             try
             {
-                var result = await _userService.DeleteUser(id);
+                var result = await _taskService.DeleteTask(id);
                 return Ok(result);
             }
             catch (KeyNotFoundException ex)

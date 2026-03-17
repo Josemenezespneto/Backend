@@ -19,7 +19,10 @@ var connectionString = builder.Configuration.GetConnectionString("ConnectionPost
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITaskService, TaskService>();
 
 var app = builder.Build();
 

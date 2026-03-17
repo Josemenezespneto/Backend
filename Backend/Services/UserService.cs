@@ -28,9 +28,9 @@ public class UserService : IUserService
 
     public async Task<UserModel> CreateUser(UserModel user)
     {
-        var existingUser = await _userRepository.GetByEmail(user.Email);
+        var userFound = await _userRepository.GetByEmail(user.Email);
 
-        if (existingUser != null)
+        if (userFound != null)
             throw new Exception("Já existe um usuário com esse email");
 
         return await _userRepository.Add(user);
@@ -38,12 +38,12 @@ public class UserService : IUserService
 
     public async Task<UserModel> UpdateUser(UserModel user, int id)
     {
-        var existingUser = await _userRepository.GetById(id);
+        var userFound = await _userRepository.GetById(id);
 
-        if (existingUser == null)
+        if (userFound == null)
             throw new KeyNotFoundException($"Usuário com Id {id} não encontrado");
 
-        if (existingUser.Email != user.Email)
+        if (userFound.Email != user.Email)
         {
             var emailExists = await _userRepository.GetByEmail(user.Email);
 
@@ -51,19 +51,19 @@ public class UserService : IUserService
                 throw new Exception("Email já está em uso");
         }
 
-        existingUser.Name = user.Name;
-        existingUser.Email = user.Email;
+        userFound.Name = user.Name;
+        userFound.Email = user.Email;
 
-        return await _userRepository.Update(existingUser);
+        return await _userRepository.Update(userFound);
     }
 
     public async Task<bool> DeleteUser(int id)
     {
-        var user = await _userRepository.GetById(id);
+        var userFound = await _userRepository.GetById(id);
 
-        if (user == null)
+        if (userFound == null)
             throw new KeyNotFoundException($"Usuário com Id {id} não encontrado");
 
-        return await _userRepository.Delete(user);
+        return await _userRepository.Delete(userFound);
     }
 }

@@ -16,6 +16,7 @@ public class UserRepository : IUserRepository
     {
         return await _dbContext.Users
             .AsNoTracking()
+            .Include(x => x.Tasks)
             .ToListAsync();
     }
 

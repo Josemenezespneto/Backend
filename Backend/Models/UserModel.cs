@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 namespace Backend.Models
 {
 	public class UserModel
@@ -9,6 +10,7 @@ namespace Backend.Models
 
         public required string Email { get; set; }
 
-	}
+        public virtual ICollection<TaskModel> Tasks { get; set; } = new List<TaskModel>();
+    }
 }
 

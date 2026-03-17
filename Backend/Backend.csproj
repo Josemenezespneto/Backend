@@ -47,4 +47,7 @@
     <Folder Include="Services\" />
     <Folder Include="Services\interfaces\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Migrations\DatabaseContextModelSnapshot.cs" />
+  </ItemGroup>
 </Project>
