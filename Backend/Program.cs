@@ -1,6 +1,7 @@
 ﻿using Backend.Data;
 using Backend.Repositories;
 using Backend.Repositories.Interfaces;
+using Backend.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ var connectionString = builder.Configuration.GetConnectionString("ConnectionPost
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
