@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20260317162356_RelationTaskUser")]
-    partial class RelationTaskUser
+    [Migration("20260318123927_InitialMigrationCorrect")]
+    partial class InitialMigrationCorrect
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,6 +73,10 @@ namespace Backend.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -81,10 +85,16 @@ namespace Backend.Migrations
             modelBuilder.Entity("Backend.Models.TaskModel", b =>
                 {
                     b.HasOne("Backend.Models.UserModel", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithMany("Tasks")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Backend.Models.UserModel", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

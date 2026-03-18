@@ -33,6 +33,8 @@ public class UserService : IUserService
         if (userFound != null)
             throw new Exception("Já existe um usuário com esse email");
 
+        user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
         return await _userRepository.Add(user);
     }
 
@@ -55,6 +57,16 @@ public class UserService : IUserService
         userFound.Email = user.Email;
 
         return await _userRepository.Update(userFound);
+    }
+
+    public async Task<UserModel> GetByEmail(string email)
+    {
+        var user = await _userRepository.GetByEmail(email);
+
+        if (user == null)
+            throw new Exception("Usuário não encontrado");
+
+        return user;
     }
 
     public async Task<bool> DeleteUser(int id)

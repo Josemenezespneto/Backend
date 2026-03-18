@@ -1,9 +1,11 @@
 using Backend.Models;
 using Backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -16,14 +18,14 @@ namespace Backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<UserModel>>> GetAllUsers()
+        public async Task<ActionResult<List<UserResponseDto>>> GetAllUsers()
         {
             var users = await _userService.GetAllUsers();
             return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserModel>> GetById(int id)
+        public async Task<ActionResult<GetUserDto>> GetById(int id)
         {
             try
             {
@@ -37,7 +39,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserModel>> AddUser([FromBody] UserModel userModel)
+        public async Task<ActionResult<GetUserDto>> AddUser([FromBody] CreateUserDto userModel)
         {
             try
             {
@@ -52,13 +54,10 @@ namespace Backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<UserModel>> UpdateUser(int id, [FromBody] UserModel userModel)
+        public async Task<ActionResult<GetUserDto>> UpdateUser(int id, [FromBody] UpdateUserDto userModel)
         {
             try
             {
-                if (id != userModel.Id)
-                    return BadRequest("Id diferente do usuário");
-
                 var user = await _userService.UpdateUser(userModel, id);
                 return Ok(user);
             }

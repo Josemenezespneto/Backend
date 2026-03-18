@@ -1,9 +1,11 @@
 using Backend.Models;
 using Backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TaskController : ControllerBase
@@ -16,14 +18,14 @@ namespace Backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<TaskModel>>> GetAllTasks()
+        public async Task<ActionResult<List<TaskResponseDto>>> GetAllTasks()
         {
             var task = await _taskService.GetAllTasks();
             return Ok(task);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TaskModel>> GetById(int id)
+        public async Task<ActionResult<GetTaskDto>> GetById(int id)
         {
             try
             {
@@ -37,7 +39,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TaskModel>> AddTask([FromBody] TaskModel taskModel)
+        public async Task<ActionResult<GetTaskDto>> AddTask([FromBody] CreateTaskDto taskModel)
         {
             try
             {
@@ -52,7 +54,7 @@ namespace Backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<TaskModel>> UpdateUser(int id, [FromBody] TaskModel taskModel)
+        public async Task<ActionResult<GetTaskDto>> UpdateTask(int id, [FromBody] UpdateTaskDto taskModel)
         {
             try { 
             
@@ -67,7 +69,7 @@ namespace Backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<bool>> DeleteUser(int id)
+        public async Task<ActionResult<bool>> DeleteTask(int id)
         {
             try
             {
