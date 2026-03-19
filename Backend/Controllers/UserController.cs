@@ -25,7 +25,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GetUserDto>> GetById(int id)
+        public async Task<ActionResult<UserResponseDto>> GetById(int id)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<GetUserDto>> AddUser([FromBody] CreateUserDto userModel)
+        public async Task<ActionResult<UserResponseDto>> AddUser([FromBody] UserModel userModel)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<GetUserDto>> UpdateUser(int id, [FromBody] UpdateUserDto userModel)
+        public async Task<ActionResult<UserResponseDto>> UpdateUser(int id, [FromBody] UserModel userModel)
         {
             try
             {
